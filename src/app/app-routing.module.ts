@@ -1,16 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { HeaderComponent } from './header/header.component';
-import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
+import { LibraryComponent } from './library/library.component';
+import { LessonsComponent } from './lessons/lessons.component';
+import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 
 const routes: Routes = [
-  {path:'dialog', component: DialogComponent},
-  {path:'header', component: HeaderComponent},
-  {path:'login', component: LoginComponent},
-  {path:'sign', component: SignupComponent},
+  { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
+  {
+    path: 'library',
+    component: LibraryComponent,
+    data: { breadcrumb: 'Library' },
+    children: [
+      {
+        path: 'lessons',
+        component: LessonsComponent,
+        data: { breadcrumb: 'Lessons' },
+        children: [
+          { path: ':lessonName', component: LessonDetailComponent, data: { breadcrumb: 'Lesson Name' } },
+        ],
+      },
+    ],
+  },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
